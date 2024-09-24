@@ -45,7 +45,7 @@ export default function Page() {
           <div className="text-3xl hover:cursor-pointer font-bold">STAKING</div>
         </div>
         {Array.from({ length: numberOfStaking }, (_, index) => (
-          <StakingView id={index} />
+          <StakingView key = {index} id={index} />
         ))}
       </div>
     </div>
