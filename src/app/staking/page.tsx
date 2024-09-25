@@ -4,6 +4,7 @@ import { Address } from "viem";
 import VolumeTable from "@/components/competition/VolumeTable";
 import PrizeTable from "@/components/competition/PrizeTable";
 import StakingView from "@/components/staking/StakingView";
+import TotalLockedValue from "@/components/staking/TotalLockedValue";
 import { getVolumes, volumeSort } from "@/utils/actions";
 import { IVolume } from "@/utils/actions";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,9 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
   const [userVolume, setUserVolume] = useState<Array<IVolume>>([]);
-  const numberOfStaking = 4;
+  const numberOfStaking = 2;
+  const totalValue = 52300;
+
   useEffect(() => {
     const load = async () => {
       const res: any | never = await getVolumes();
@@ -44,9 +47,13 @@ export default function Page() {
           </div>
           <div className="text-3xl hover:cursor-pointer font-bold">STAKING</div>
         </div>
-        {Array.from({ length: numberOfStaking }, (_, index) => (
-          <StakingView key = {index} id={index} />
-        ))}
+
+        <TotalLockedValue value={totalValue} />
+        <div className="">
+          {Array.from({ length: numberOfStaking }, (_, index) => (
+            <StakingView key={index} id={index} />
+          ))}
+        </div>
       </div>
     </div>
   );
