@@ -25,11 +25,11 @@ export default function StakigView(props: any) {
           className="hover:cursor-pointer"
         >
           <h1 className="text-orange-500 text-3xl hover:text-4xl text-center my-4 pt-[20px]">
-            - Stake Now -
+            Stake Now
           </h1>
         </div>
       </div>
-      <div className="flex flex-col w-[60%] items-center my-6 px-[80px] py-5">
+      <div className="flex flex-col w-[60%] items-center my-6 px-[5px] py-5">
         {STAKING_TYPES[id].remainDay === 0 ? (
           <h1 className="text-orange-00 text-3xl my-4">No locks</h1>
         ) : (
