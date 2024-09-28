@@ -12,19 +12,8 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
   const [userVolume, setUserVolume] = useState<Array<IVolume>>([]);
-  const numberOfStaking = 2;
+  const numberOfStaking = 1;
   const totalValue = 52300;
-
-  useEffect(() => {
-    const load = async () => {
-      const res: any | never = await getVolumes();
-      if (res) setUserVolume(volumeSort(res));
-    };
-    setTimeout(() => {
-      load();
-    }, 1000);
-    // setUserVolume(volumeSort(list));
-  }, []);
   return (
     <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[100px]">
       <div className="relative w-[calc(100%-10px)] md:w-[700px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
@@ -53,6 +42,16 @@ export default function Page() {
           {Array.from({ length: numberOfStaking }, (_, index) => (
             <StakingView key={index} id={index} />
           ))}
+          <div className="flex bg-green-700/30 relative rounded-2xl mt-12 mb-8">
+            <div className="flex flex-col w-[40%]  px-2 py-5  bg-green-700/30 rounded-2xl">
+              <h1 className="text-orange-200 text-5xl text-center my-4 font-semibold">
+                Hard Stake
+              </h1>
+            </div>
+            <div className="flex flex-col w-[60%] items-center my-6 px-[80px] py-5">
+                <h1 className="text-orange-00 text-3xl my-4">Comming soon...</h1>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import SwapSide from "@/components/swap/SwapSide"
 import { ArrowUpDown, Wallet2 } from "lucide-react"

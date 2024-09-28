@@ -283,6 +283,7 @@ export const swapTokenForToken = async (config: Config, baseToken: number, quote
 
 
 export const swapTokens = async (config: Config, baseToken: number, quoteToken: number, baseAmount: number, address: Address | undefined) => {
+  console.log("config:",config);
   let res: boolean;
   if (TOKEN_LIST[baseToken].isNative) {
     if (TOKEN_LIST[quoteToken].name == "WCRO") {
