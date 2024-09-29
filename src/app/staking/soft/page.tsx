@@ -13,12 +13,17 @@ import { swapTokens, getQuote } from "@/utils/actions";
 import { toast } from "react-toastify";
 import { readContract, writeContract } from "@wagmi/core";
 import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
-import { getAllowance, getRewardRemain } from "@/utils/safeStakeActions";
+import { getUserInfo, getRewardRemain } from "@/utils/safeStakeActions";
 import { deposit } from "@/utils/safeStakeActions";
 import { Address } from "viem";
 import { CloudCog } from "lucide-react";
 import { config } from "@/config/config";
 import { withdraw } from "@/utils/safeStakeActions";
+import { claimRewards } from "@/utils/safeStakeActions";
+import { Emerwithdraw } from "@/utils/safeStakeActions";
+import Image from "next/image";
+import { useSwitchChain, useChainId } from "wagmi";
+import { base, cronos, cronosTestnet, mainnet } from "viem/chains";
 
 export default function Page() {
   const router = useRouter();
@@ -29,34 +34,29 @@ export default function Page() {
   const { address } = useAccount();
   const [amount, setAmount] = useState(0);
   const config1 = useConfig();
-  const [rewardRemainValue, setRewardRemainValue] = useState(0);
+  const [rewardRemainValue, setRewardRemainValue] = useState("");
+  const chainId = useChainId();
+  const { chains, switchChain, error } = useSwitchChain();
+
+  const switchChainHandle = async () => {
+    switchChain({ chainId: cronos.id });
+  };
+
+  console.log("asdf", chainId, cronos.id, chainId, cronosTestnet.id);
 
   useEffect(() => {
     const load = async () => {
-      const res: any = await getAllowance(
-        config,
-        2,
-        address as Address,
-        CONTRACT_ADDRESS
-      );
-      setYourValue(res);
+      const res: any = await getUserInfo(config, address as Address);
+      let [user_amount, user_reward] = res.toString().split(",");
+      console.log("rererererrreer" + user_amount + "a" + user_reward);
+      setYourValue(user_amount);
+      setRewardRemainValue(user_reward);
       console.log("aaaaaaaaaaaa" + res);
     };
-    if (address && config) load();
+    if (address && config) {
+      load();
+    }
   }, [config, address]);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const res: any = await getRewardRemain();
-        console.log(res, "============>");
-        setRewardRemainValue(res);
-      } catch (error) {
-        console.error("Error fetching total staked:", error);
-      }
-    };
-    load();
-  }, [setRewardRemainValue]);
 
   // const newDeposit = (useCallback(async () => {
   //   if (baseToken == quoteToken) return;
@@ -77,20 +77,39 @@ export default function Page() {
 
   const depositNew = () => {
     console.log("let's deposit");
-    const res = deposit(config1, amount, CONTRACT_ADDRESS);
-    console.log(amount, "mamamamam");
-    
-    if (!res) return;
+    try {
+      const res = deposit(config1, amount, CONTRACT_ADDRESS);
+      console.log(amount, "mamamamam");
+    } catch (error) {
+      console.log("deposit Error!" + error);
+    }
   };
 
   const withdrawFunc = () => {
-    const res = withdraw(config1  , CONTRACT_ADDRESS);
-   
+    try {
+      const res = withdraw(config1, CONTRACT_ADDRESS);
+    } catch (error) {
+      console.log("withdrawErr:", error);
+    }
+  };
 
-    if(!res ) return;
-  }
+  const EmerwithdrawFunc = () => {
+    try {
+      const res = Emerwithdraw(config1, CONTRACT_ADDRESS);
+    } catch (error) {
+      console.log("withdrawErr:", error);
+    }
+  };
 
-  const showRemain = (rewardRemainValue: number) => {
+  const allClaim = () => {
+    try {
+      const res = claimRewards(config1);
+    } catch (error) {
+      console.log("allClaim Err:", error);
+    }
+  };
+
+  const showRemain = (rewardRemainValue: string) => {
     console.log("reward Remain -> " + rewardRemainValue);
     return rewardRemainValue;
   };
@@ -125,73 +144,95 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="flex flex-row">
-          <YourLockedValue value={yourValue} />
-          <div className="flex flex-col w-[40%] h-[85%] border-l-8 border-green-1">
-            <input
-              className="bg-transparent text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-3xl text-center px-3 h-12 z-20 text-white"
-              placeholder="Input amount..."
-              // disabled={disabled}
-              onChange={handleAmountChange}
-            />
-            <div
-              onClick={depositNew}
-              className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 pt-[50px]"
-            >
-              Deposit
+            
+        {!(chainId != cronos.id && chainId != cronosTestnet.id) ? (
+          <div className="">
+            <div className="flex flex-row">
+              <YourLockedValue value={yourValue} />
+              <div className="flex flex-col w-[40%] h-[85%] border-l-8 border-green-1">
+                <input
+                  className="bg-transparent text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-3xl text-center px-3 h-12 z-20 text-white"
+                  placeholder="Input amount..."
+                  // disabled={disabled}
+                  onChange={handleAmountChange}
+                />
+                <div
+                  onClick={depositNew}
+                  className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 pt-[50px]"
+                >
+                  Deposit
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <button
-            onClick={() => {
-              console.log("soft-all claimed!!!");
-            }}
-            type="button"
-            className="flex justify-center items-center w-full py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
-          >
-            <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
-              All Claim ( {showRemain(rewardRemainValue)} )
-            </div>
-          </button>
+            <div className="flex flex-col">
+              <button
+                onClick={() => {
+                  console.log("soft-all claimed!!!");
+                }}
+                type="button"
+                className="flex justify-center items-center w-full py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+              >
+                <div
+                  onClick={allClaim}
+                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
+                >
+                  Claim ( {showRemain(rewardRemainValue)} )
+                </div>
+              </button>
 
-          <div className="flex items-center mt-12">
-            {/* <input
+              <div className="flex items-center mt-12">
+                {/* <input
                 className="bg-transparent w-full text-right focus:outline-0 font-bold pr-2 text-5xl px-3 h-12 z-20 text-white"
                 // value={amount ? amount : ""}
                 placeholder="0"
                 // disabled={disabled}
                 // onChange={handleAmountChange}
               /> */}
+              </div>
+            </div>
+            <div className="flex flex-row gap-7">
+              <button
+                onClick={() => {
+                  console.log("soft-all claimed!!!");
+                }}
+                type="button"
+                className="flex justify-center items-center w-[40%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+              >
+                <div
+                  onClick={withdrawFunc}
+                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
+                >
+                  Withdraw
+                </div>
+              </button>
+              <button
+                onClick={() => {
+                  console.log("soft-all claimed!!!");
+                }}
+                type="button"
+                className="flex justify-center items-center w-[60%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+              >
+                <div
+                  onClick={EmerwithdrawFunc}
+                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
+                >
+                  Emergency Withdraw
+                </div>
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row gap-7">
+        ) : (
           <button
-            onClick={() => {
-              console.log("soft-all claimed!!!");
-            }}
             type="button"
-            className="flex justify-center items-center w-[40%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+            onClick={switchChainHandle}
+            className="flex justify-center items-center gap-4 w-full py-3 bg-green-600 text-xl rounded-xl hover:shadow-button hover:shadow-blue-400 hover:text-blue-400 text-orange-600 uppercase tracking-widest"
           >
-            <div
-              onClick={withdrawFunc}
-              className="relative text-2xl font-medium text-orange-00 text-center z-10"
-            >
-              Withdraw
+            <div className="relative w-12 h-12">
+              <Image src="/switch.png" fill alt="" />
             </div>
+            Switch wallet
           </button>
-          <button
-            onClick={() => {
-              console.log("soft-all claimed!!!");
-            }}
-            type="button"
-            className="flex justify-center items-center w-[60%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
-          >
-            <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
-              Emergency Withdraw
-            </div>
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );

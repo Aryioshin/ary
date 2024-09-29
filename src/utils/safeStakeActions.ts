@@ -5,21 +5,20 @@ import { CONTRACT_ADDRESS, TOKEN_LIST, WCRO, VVS2Router, fee, } from '../config/
 import { CONTRACT_ABI_ARY, VVS2_ABI, ABI } from '@/utils';
 import { getBalance } from 'wagmi/actions';
 import { toast } from 'react-toastify';
-import { Config } from "wagmi"
+import { Config, useAccount } from "wagmi"
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { parseEther } from 'viem'
 import { config } from '@/config/config';
 
-export const getAllowance = async (config: Config, tokenId: number, owner: Address, spender: Address = CONTRACT_ADDRESS) => {
-    const token = TOKEN_LIST[tokenId];
-    const tokenAddress = token.address;
-    const allowance = await readContract(config, {
-      abi : Abis[token.name],
-      address: tokenAddress as Address,
-      functionName: "balanceOf",
-      args: [spender],
+export const getUserInfo = async (config: Config, owner: Address) => {
+    const res = await readContract(config, {
+      abi : CONTRACT_ABI_ARY,
+      address: CONTRACT_ADDRESS as Address,
+      functionName: "userInfo",
+      args: [owner],
     });
-    return allowance;
+    
+    return res;
   }
 
   export const getTotalStaked = async () => {
@@ -111,7 +110,9 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
           return false
         });
       console.log(res)
+      window.location.reload();
       toast.success("deposit success");
+
       return res
     } catch (error) {
       console.log(error)
@@ -120,6 +121,38 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
     }
   }
 
+  export const claimRewards = async (config: Config) => {
+    toast.warning('Please wait while claimReward');
+    try {
+      const res = await writeContract(config, {
+        abi : CONTRACT_ABI_ARY,
+        address: CONTRACT_ADDRESS as Address,
+        functionName: 'claimRewards',
+        args: [],
+      }).then(async (hash) => {
+        console.log("Tx:", hash);
+        toast.warning('Please wait');
+        await waitForTransactionReceipt(config, {
+          hash,
+        });
+      window.location.reload();
+
+        toast.success('claim success');
+
+        return true
+      })
+        .catch((reason) => {
+          console.log("Faild claim:", reason);
+          toast.error("claim Faild");
+          return false
+        });
+      return res;
+    } catch (error) {
+      console.log(error);
+      toast.error("claim Faild");
+      return false
+    }
+  }
 
   export const withdraw = async (config: Config, address: Address | undefined) => {
     toast.warning('Please wait while withdrawing');
@@ -136,6 +169,8 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
         await waitForTransactionReceipt(config, {
           hash,
         });
+      window.location.reload();
+
         toast.success('withdraw success');
         return true
       })
@@ -148,6 +183,39 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
     } catch (error) {
       console.log(error);
       toast.error("Transcation Faild");
+      return false
+    }
+  }
+
+  export const Emerwithdraw = async (config: Config, address: Address | undefined) => {
+    toast.warning('Please wait while EmergencyWithdraw');
+    
+    try {
+      const res = await writeContract(config, {
+        abi : CONTRACT_ABI_ARY,
+        address: CONTRACT_ADDRESS as Address,
+        functionName: 'emergencyWithdraw',
+        args: [],
+      }).then(async (hash) => {
+        console.log("Tx:", hash);
+        toast.warning('Please wait');
+        await waitForTransactionReceipt(config, {
+          hash,
+        });
+      window.location.reload();
+
+        toast.success('EmergencyWithdraw success');
+        return true
+      })
+        .catch((reason) => {
+          console.log("Faild withdraw:", reason);
+          toast.error("Emer-withdraw Faild");
+          return false
+        });
+      return res;
+    } catch (error) {
+      console.log(error);
+      toast.error("Emer-withdraw Faild");
       return false
     }
   }

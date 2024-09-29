@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 const STAKING_TYPES = [
-  { stakeMode: "Soft Stake", percent: 0.2, remainDay: 0 },
+  { stakeMode: "Soft Stake", percent: 0.7, remainDay: 0 },
   { stakeMode: "Hard Stake", percent: 0.5, remainDay: 10 },
 ];
 

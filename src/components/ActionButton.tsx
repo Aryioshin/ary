@@ -58,6 +58,7 @@ export default function ConnectWalletButton({ swap } : any) {
                 );
               }
 
+              console.log("wfwf", chainId, cronos.id, chainId, cronosTestnet.id)
               if (chainId != cronos.id && chainId != cronosTestnet.id) {
                 return (
                   <button onClick={switchChainHandle} type="button"
