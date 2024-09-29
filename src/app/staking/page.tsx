@@ -8,12 +8,29 @@ import TotalLockedValue from "@/components/staking/TotalLockedValue";
 import { getVolumes, volumeSort } from "@/utils/actions";
 import { IVolume } from "@/utils/actions";
 import { useRouter } from "next/navigation";
+import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
+import { useAccount, useConfig } from "wagmi";
+import { getTotalStaked } from "@/utils/safeStakeActions";
 
 export default function Page() {
   const router = useRouter();
   const [userVolume, setUserVolume] = useState<Array<IVolume>>([]);
   const numberOfStaking = 1;
-  const totalValue = 52300;
+  const [totalValue, setTotalValue] = useState<number | any>(0);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res: any = await getTotalStaked();
+        console.log(res, "============>")
+        setTotalValue(res);
+      } catch (error) {
+        console.error("Error fetching total staked:", error);
+      }
+    };
+    load();
+  }, [setTotalValue]);
+
   return (
     <div className="flex justify-center items-center w-full h-[100vh] text-green-200 sm:pt-[100px] pt-[350px]">
       <div className="relative w-[calc(100%-10px)] md:w-[700px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
@@ -49,7 +66,7 @@ export default function Page() {
               </h1>
             </div>
             <div className="flex flex-col w-[60%] items-center my-6 px-[80px] py-5">
-                <h1 className="text-orange-00 text-3xl my-4">Comming soon...</h1>
+              <h1 className="text-orange-00 text-3xl my-4">Comming soon...</h1>
             </div>
           </div>
         </div>

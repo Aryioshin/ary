@@ -14,16 +14,19 @@ import { toast } from "react-toastify";
 import { readContract, writeContract } from "@wagmi/core";
 import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
 import { getAllowance } from "@/utils/safeStakeActions";
+import { deposit } from "@/utils/safeStakeActions";
 import { Address } from "viem";
+import { CloudCog } from "lucide-react";
+import { config } from '@/config/config';
 
 export default function Page() {
   const router = useRouter();
   const [userVolume, setUserVolume] = useState<Array<IVolume>>([]);
   const [yourValue, setYourValue] = useState(0);
   const numberOfStaking = 2;
-  const config = useConfig();
+  // const config = useConfig();
   const { address } = useAccount();
-  const amount: number = 0;
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     const load = async () => {
@@ -34,8 +37,9 @@ export default function Page() {
         CONTRACT_ADDRESS
       );
       setYourValue(res);
+      console.log("alllllllll" + res)
     };
-    load();
+    if (address && config) load();
   }, [config, address]);
 
   // const newDeposit = (useCallback(async () => {
@@ -48,6 +52,18 @@ export default function Page() {
   //   }
   //   setIsSwapping(false);
   // }, [baseAmount, address]))
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value * Math.pow(10, 18);
+    setAmount(value);
+    console.log("chchchch:" + value);
+  };
+
+  const depositNew = () => {
+    console.log("let's deposit");
+    const res = deposit(config, amount, CONTRACT_ADDRESS);
+    if (!res) return;
+  };
 
   return (
     <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[100px]">
@@ -83,13 +99,15 @@ export default function Page() {
           <YourLockedValue value={yourValue} />
           <div className="flex flex-col w-[40%]">
             <input
-              className="bg-transparent w-full text-right focus:outline-0 font-bold pr-2 text-5xl px-3 h-12 z-20 text-white"
-              // value={amount ? amount : ""}
+              className="bg-transparent text-right focus:outline-0 font-bold mt-5 mr-10 text-3xl text-center px-3 h-12 z-20 text-white"
               placeholder="0"
               // disabled={disabled}
-              // onChange={handleAmountChange}
+              onChange={handleAmountChange}
             />
-            <div className="relative text-4xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 pt-[110px]">
+            <div
+              onClick={depositNew}
+              className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 pt-[50px]"
+            >
               Deposit
             </div>
           </div>
@@ -102,7 +120,7 @@ export default function Page() {
             type="button"
             className="flex justify-center items-center w-full py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
           >
-            <div className="relative text-4xl font-medium text-orange-00 text-center z-10">
+            <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
               All Claim ( 55 )
             </div>
           </button>
@@ -123,20 +141,9 @@ export default function Page() {
               console.log("soft-all claimed!!!");
             }}
             type="button"
-            className="flex justify-center items-center w-[33%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+            className="flex justify-center items-center w-[40%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
           >
-            <div className="relative text-4xl font-medium text-orange-00 text-center z-10">
-              Claim
-            </div>
-          </button>
-          <button
-            onClick={() => {
-              console.log("soft-all claimed!!!");
-            }}
-            type="button"
-            className="flex justify-center items-center w-[33%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
-          >
-            <div className="relative text-4xl font-medium text-orange-00 text-center z-10">
+            <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
               Withdraw
             </div>
           </button>
@@ -145,9 +152,9 @@ export default function Page() {
               console.log("soft-all claimed!!!");
             }}
             type="button"
-            className="flex justify-center items-center w-[33%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+            className="flex justify-center items-center w-[60%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
           >
-            <div className="relative text-4xl font-medium text-orange-00 text-center z-10">
+            <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
               Emergency Withdraw
             </div>
           </button>
