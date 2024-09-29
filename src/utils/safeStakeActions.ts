@@ -9,8 +9,6 @@ import { Config } from "wagmi"
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { parseEther } from 'viem'
 import { config } from '@/config/config';
-import { useRouter } from "next/navigation";
-
 
 export const getAllowance = async (config: Config, tokenId: number, owner: Address, spender: Address = CONTRACT_ADDRESS) => {
     const token = TOKEN_LIST[tokenId];
@@ -87,8 +85,6 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
   }
 
   export const deposit = async (config: Config, amount: number, address: Address | undefined) => {
-const router = useRouter();
-
     if(amount === 0) {
       toast.error("Input amount correctly");
       return false;
@@ -116,8 +112,6 @@ const router = useRouter();
         });
       console.log(res)
       toast.success("deposit success");
-      router.push("/staking");
-
       return res
     } catch (error) {
       console.log(error)
@@ -129,7 +123,6 @@ const router = useRouter();
 
   export const withdraw = async (config: Config, address: Address | undefined) => {
     toast.warning('Please wait while withdrawing');
-const router = useRouter();
     
     try {
       const res = await writeContract(config, {
@@ -144,7 +137,6 @@ const router = useRouter();
           hash,
         });
         toast.success('withdraw success');
-        router.push("/staking");
         return true
       })
         .catch((reason) => {

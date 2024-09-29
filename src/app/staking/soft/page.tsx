@@ -69,7 +69,7 @@ export default function Page() {
   //   setIsSwapping(false);
   // }, [baseAmount, address]))
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAmountChange = (e: any) => {
     const value = e.target.value * Math.pow(10, 18);
     setAmount(value);
     console.log("chchchch:" + value);
