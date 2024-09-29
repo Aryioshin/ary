@@ -13,11 +13,12 @@ import { swapTokens, getQuote } from "@/utils/actions";
 import { toast } from "react-toastify";
 import { readContract, writeContract } from "@wagmi/core";
 import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
-import { getAllowance } from "@/utils/safeStakeActions";
+import { getAllowance, getRewardRemain } from "@/utils/safeStakeActions";
 import { deposit } from "@/utils/safeStakeActions";
 import { Address } from "viem";
 import { CloudCog } from "lucide-react";
-import { config } from '@/config/config';
+import { config } from "@/config/config";
+import { withdraw } from "@/utils/safeStakeActions";
 
 export default function Page() {
   const router = useRouter();
@@ -28,6 +29,7 @@ export default function Page() {
   const { address } = useAccount();
   const [amount, setAmount] = useState(0);
   const config1 = useConfig();
+  const [rewardRemainValue, setRewardRemainValue] = useState(0);
 
   useEffect(() => {
     const load = async () => {
@@ -38,10 +40,23 @@ export default function Page() {
         CONTRACT_ADDRESS
       );
       setYourValue(res);
-      console.log("aaaaaaaaaaaa" + res)
+      console.log("aaaaaaaaaaaa" + res);
     };
     if (address && config) load();
   }, [config, address]);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res: any = await getRewardRemain();
+        console.log(res, "============>");
+        setRewardRemainValue(res);
+      } catch (error) {
+        console.error("Error fetching total staked:", error);
+      }
+    };
+    load();
+  }, [setRewardRemainValue]);
 
   // const newDeposit = (useCallback(async () => {
   //   if (baseToken == quoteToken) return;
@@ -63,10 +78,21 @@ export default function Page() {
   const depositNew = () => {
     console.log("let's deposit");
     const res = deposit(config1, amount, CONTRACT_ADDRESS);
-    console.log(amount, "mamamamam")
-    router.refresh();
+    console.log(amount, "mamamamam");
+    
     if (!res) return;
+  };
 
+  const withdrawFunc = () => {
+    const res = withdraw(config1  , CONTRACT_ADDRESS);
+   
+
+    if(!res ) return;
+  }
+
+  const showRemain = (rewardRemainValue: number) => {
+    console.log("reward Remain -> " + rewardRemainValue);
+    return rewardRemainValue;
   };
 
   return (
@@ -125,7 +151,7 @@ export default function Page() {
             className="flex justify-center items-center w-full py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
           >
             <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
-              All Claim ( 55 )
+              All Claim ( {showRemain(rewardRemainValue)} )
             </div>
           </button>
 
@@ -147,7 +173,10 @@ export default function Page() {
             type="button"
             className="flex justify-center items-center w-[40%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
           >
-            <div className="relative text-2xl font-medium text-orange-00 text-center z-10">
+            <div
+              onClick={withdrawFunc}
+              className="relative text-2xl font-medium text-orange-00 text-center z-10"
+            >
               Withdraw
             </div>
           </button>

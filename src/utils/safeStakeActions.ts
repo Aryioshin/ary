@@ -9,6 +9,8 @@ import { Config } from "wagmi"
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { parseEther } from 'viem'
 import { config } from '@/config/config';
+import { useRouter } from "next/navigation";
+
 
 export const getAllowance = async (config: Config, tokenId: number, owner: Address, spender: Address = CONTRACT_ADDRESS) => {
     const token = TOKEN_LIST[tokenId];
@@ -32,6 +34,22 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
       });
       console.log(totalStaked, "SADAAAAAAAAAAAAAA")
       return totalStaked;
+    } catch (error) {
+      console.log("EEEEEEEEEEEEE", error);
+    }
+    
+  }
+
+  export const getRewardRemain = async () => {
+    try {
+      console.log(config, "AAAAAAAAAAAAAAAA");
+      const rewardRemain = await readContract(config, {
+        abi : CONTRACT_ABI_ARY,
+        address: CONTRACT_ADDRESS as Address,
+        functionName: "rewardsRemaining",
+      });
+      console.log(rewardRemain, "SADAAAAAAAAAAAAAA")
+      return rewardRemain;
     } catch (error) {
       console.log("EEEEEEEEEEEEE", error);
     }
@@ -69,6 +87,12 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
   }
 
   export const deposit = async (config: Config, amount: number, address: Address | undefined) => {
+const router = useRouter();
+
+    if(amount === 0) {
+      toast.error("Input amount correctly");
+      return false;
+    } 
     const approveRes = await approve(config, 2, amount, address);
     if(!approveRes) return false;
     try {
@@ -92,10 +116,46 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
         });
       console.log(res)
       toast.success("deposit success");
+      router.push("/staking");
+
       return res
     } catch (error) {
       console.log(error)
       toast.error("Transcation failed");
       return false;
+    }
+  }
+
+
+  export const withdraw = async (config: Config, address: Address | undefined) => {
+    toast.warning('Please wait while withdrawing');
+const router = useRouter();
+    
+    try {
+      const res = await writeContract(config, {
+        abi : CONTRACT_ABI_ARY,
+        address: CONTRACT_ADDRESS as Address,
+        functionName: 'withdraw',
+        args: [],
+      }).then(async (hash) => {
+        console.log("Tx:", hash);
+        toast.warning('Please wait');
+        await waitForTransactionReceipt(config, {
+          hash,
+        });
+        toast.success('withdraw success');
+        router.push("/staking");
+        return true
+      })
+        .catch((reason) => {
+          console.log("Faild withdraw:", reason);
+          toast.error("Transaction Faild");
+          return false
+        });
+      return res;
+    } catch (error) {
+      console.log(error);
+      toast.error("Transcation Faild");
+      return false
     }
   }
