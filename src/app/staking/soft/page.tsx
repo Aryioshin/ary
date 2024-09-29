@@ -144,26 +144,27 @@ export default function Page() {
           </div>
         </div>
 
-            
         {!(chainId != cronos.id && chainId != cronosTestnet.id) ? (
           <div className="">
             <div className="flex flex-row">
               <YourLockedValue value={yourValue} />
-              <div className="flex flex-col w-[40%] h-[85%] border-l-8 border-green-1">
-                <input
-                  className="bg-transparent text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-3xl text-center px-3 h-12 z-20 text-white"
-                  placeholder="Input amount..."
-                  // disabled={disabled}
-                  onChange={handleAmountChange}
-                />
-                <div
-                  onClick={depositNew}
-                  className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 pt-[50px]"
-                >
-                  Deposit
-                </div>
-              </div>
             </div>
+            <div className="flex justify-center">
+              <h1 className="text-orange-00 text-3xl text-center w-[129px] mt-[15px]">Input</h1>
+              <input
+                className="bg-transparent w-[100px] text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-5xl text-center px-3 h-12 z-20 text-orange-00"
+                placeholder="0"
+                // disabled={disabled}
+                onChange={handleAmountChange}
+              />
+            </div>
+            <div
+              onClick={depositNew}
+              className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
+            >
+              Deposit
+            </div>
+
             <div className="flex flex-col">
               <button
                 onClick={() => {
