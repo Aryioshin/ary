@@ -27,6 +27,7 @@ export default function Page() {
   // const config = useConfig();
   const { address } = useAccount();
   const [amount, setAmount] = useState(0);
+  const config1 = useConfig();
 
   useEffect(() => {
     const load = async () => {
@@ -37,7 +38,7 @@ export default function Page() {
         CONTRACT_ADDRESS
       );
       setYourValue(res);
-      console.log("alllllllll" + res)
+      console.log("aaaaaaaaaaaa" + res)
     };
     if (address && config) load();
   }, [config, address]);
@@ -61,8 +62,11 @@ export default function Page() {
 
   const depositNew = () => {
     console.log("let's deposit");
-    const res = deposit(config, amount, CONTRACT_ADDRESS);
+    const res = deposit(config1, amount, CONTRACT_ADDRESS);
+    console.log(amount, "mamamamam")
+    router.refresh();
     if (!res) return;
+
   };
 
   return (
@@ -97,10 +101,10 @@ export default function Page() {
 
         <div className="flex flex-row">
           <YourLockedValue value={yourValue} />
-          <div className="flex flex-col w-[40%]">
+          <div className="flex flex-col w-[40%] h-[85%] border-l-8 border-green-1">
             <input
-              className="bg-transparent text-right focus:outline-0 font-bold mt-5 mr-10 text-3xl text-center px-3 h-12 z-20 text-white"
-              placeholder="0"
+              className="bg-transparent text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-3xl text-center px-3 h-12 z-20 text-white"
+              placeholder="Input amount..."
               // disabled={disabled}
               onChange={handleAmountChange}
             />

@@ -16,8 +16,8 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
     const allowance = await readContract(config, {
       abi : Abis[token.name],
       address: tokenAddress as Address,
-      functionName: "allowance",
-      args: [owner, spender],
+      functionName: "balanceOf",
+      args: [spender],
     });
     return allowance;
   }
@@ -39,6 +39,9 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
   }
 
   export const approve = async (config: Config, tokenId: number, amount: any, spenderAddress: Address = CONTRACT_ADDRESS) => {
+    toast.warning('Please wait');
+    console.log(amount + "---------------------");
+    console.log(spenderAddress + "--------------------");
     const token = TOKEN_LIST[tokenId];
     const tokenAddress = token.address;
     const abi = Abis[token.name]
@@ -52,29 +55,28 @@ export const getAllowance = async (config: Config, tokenId: number, owner: Addre
       await waitForTransactionReceipt(config, {
         hash,
       });
+      toast.success("approve success");
       return true
     }).catch((reason) => {
       console.log("Approve faild:", reason);
       toast.error("approve failed");
       return false;
     });
-    toast.success("approve success");
+    
 
     return appr
 
   }
 
   export const deposit = async (config: Config, amount: number, address: Address | undefined) => {
-    const approveRes = await approve(config, 2, amount);
+    const approveRes = await approve(config, 2, amount, address);
     if(!approveRes) return false;
     try {
       const res = await writeContract(config, {
         abi: CONTRACT_ABI_ARY,
         address: CONTRACT_ADDRESS as Address,
         functionName: 'deposit',
-        args: [],
-        account: address as Address,
-        value: parseEther(amount.toString())
+        args: [amount],
       }).then(async (hash) => {
         console.log("Approve Tx:", hash);
         toast.warning('Please wait');
