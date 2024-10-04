@@ -75,9 +75,11 @@ export const getTokenBalance = async (config: Config, address: Address, chainId:
       abi, functionName: 'balanceOf',
       address: tokenAddress as Address, args: [address as Address]
     })
-
+    console.log("ZXCV", token, tokenAddress);
     return convertBignitTofloat(tokenBalance, token.decimal);
   } catch (error) {
+    console.log("ZXCV", token, tokenAddress);
+
     toast.warning("Switch to the Cronos Chain");
     return 0;
   }

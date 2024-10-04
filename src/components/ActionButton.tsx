@@ -2,6 +2,7 @@
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useSwitchChain, useChainId, } from 'wagmi';
+// import { base, cronos, cronosTestnet, mainnet } from 'viem/chains';
 import { base, cronos, cronosTestnet, mainnet } from 'viem/chains';
 import Image from 'next/image';
 

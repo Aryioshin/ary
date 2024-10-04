@@ -150,9 +150,11 @@ export default function Page() {
               <YourLockedValue value={yourValue} />
             </div>
             <div className="flex justify-center">
-              <h1 className="text-orange-00 text-3xl text-center w-[129px] mt-[15px]">Input</h1>
+              <h1 className="text-orange-00 text-5xl text-center w-[129px] mt-[15px]">
+                Input
+              </h1>
               <input
-                className="bg-transparent w-[100px] text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-5xl text-center px-3 h-12 z-20 text-orange-00"
+                className="bg-transparent w-[80px] text-right focus:outline-2 outline-2 outline-green-1 font-bold mt-5 mx-10 text-5xl text-center px-3 h-12 z-20 text-orange-00"
                 placeholder="0"
                 // disabled={disabled}
                 onChange={handleAmountChange}
@@ -171,7 +173,7 @@ export default function Page() {
                   console.log("soft-all claimed!!!");
                 }}
                 type="button"
-                className="flex justify-center items-center w-full py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+                className="flex justify-center items-center w-full mt-4 py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
               >
                 <div
                   onClick={allClaim}
@@ -181,6 +183,35 @@ export default function Page() {
                 </div>
               </button>
 
+              <button
+                onClick={() => {
+                  console.log("soft-all claimed!!!");
+                }}
+                type="button"
+                className="flex justify-center items-center  w-full mt-4 py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+              >
+                <div
+                  onClick={withdrawFunc}
+                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
+                >
+                  Withdraw
+                </div>
+              </button>
+
+              <button
+                onClick={() => {
+                  console.log("soft-all claimed!!!");
+                }}
+                type="button"
+                className="flex justify-center items-center w-full mt-4 py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
+              >
+                <div
+                  onClick={EmerwithdrawFunc}
+                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
+                >
+                  Emergency Withdraw
+                </div>
+              </button>
               <div className="flex items-center mt-12">
                 {/* <input
                 className="bg-transparent w-full text-right focus:outline-0 font-bold pr-2 text-5xl px-3 h-12 z-20 text-white"
@@ -190,36 +221,6 @@ export default function Page() {
                 // onChange={handleAmountChange}
               /> */}
               </div>
-            </div>
-            <div className="flex flex-row gap-7">
-              <button
-                onClick={() => {
-                  console.log("soft-all claimed!!!");
-                }}
-                type="button"
-                className="flex justify-center items-center w-[40%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
-              >
-                <div
-                  onClick={withdrawFunc}
-                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
-                >
-                  Withdraw
-                </div>
-              </button>
-              <button
-                onClick={() => {
-                  console.log("soft-all claimed!!!");
-                }}
-                type="button"
-                className="flex justify-center items-center w-[60%] py-3 bg-green-1 rounded-xl hover:shadow-button hover:shadow-blue-400 tracking-widest"
-              >
-                <div
-                  onClick={EmerwithdrawFunc}
-                  className="relative text-2xl font-medium text-orange-00 text-center z-10"
-                >
-                  Emergency Withdraw
-                </div>
-              </button>
             </div>
           </div>
         ) : (
