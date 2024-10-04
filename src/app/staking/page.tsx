@@ -25,7 +25,7 @@ export default function Page() {
         console.log(res, "============>")
         setTotalValue(res);
       } catch (error) {
-        console.error("Error fetching total staked:", error);
+        console.error("Error fetching total staked", error);
       }
     };
     load();
