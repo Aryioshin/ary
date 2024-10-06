@@ -197,7 +197,7 @@ export default function Page() {
                   Withdraw
                 </div>
               </button>
-
+{/* 
               <button
                 onClick={() => {
                   console.log("soft-all claimed!!!");
@@ -211,7 +211,7 @@ export default function Page() {
                 >
                   Emergency Withdraw
                 </div>
-              </button>
+              </button> */}
               <div className="flex items-center mt-12">
                 {/* <input
                 className="bg-transparent w-full text-right focus:outline-0 font-bold pr-2 text-5xl px-3 h-12 z-20 text-white"
