@@ -1,15 +1,21 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
+import { format } from "path";
+import { formatEther } from "viem";
+import { formatUnits } from "viem";
 const STAKING_TYPES = [
-  { stakeMode: "Soft Stake", percent: 0.7, remainDay: 0 },
-  { stakeMode: "Hard Stake", percent: 0.5, remainDay: 10 },
+  { stakeMode: "Soft Stake", remainDay: 0 },
+  { stakeMode: "Hard Stake", remainDay: 10 },
 ];
 
 export default function StakigView(props: any) {
-  const { id } = props;
+  const { id, percent } = props;
   const router = useRouter();
+
+  const formatAPR = (val : any) => {
+    return val / 100;
+  }
 
   return (
     <div className="flex bg-green-700/30 relative rounded-2xl mt-12 mb-8">
@@ -38,7 +44,7 @@ export default function StakigView(props: any) {
           </h1>
         )}
         <h1 className="text-orange-00 text-3xl my-4">
-          {STAKING_TYPES[id].percent} reward
+          {formatUnits(percent, 2) }% reward
         </h1>
       </div>
     </div>

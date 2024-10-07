@@ -37,6 +37,22 @@ export const getUserInfo = async (config: Config, owner: Address) => {
     
   }
 
+  export const getSoftAPR = async () => {
+    try {
+      console.log(config, "af");
+      const softPercent = await readContract(config, {
+        abi : CONTRACT_ABI_ARY,
+        address: CONTRACT_ADDRESS as Address,
+        functionName: "apr",
+      });
+      console.log(softPercent, "SADAAAAAAAAAAAAAA")
+      return softPercent;
+    } catch (error) {
+      console.log("EEEEEEEEEEEEE", error);
+    }
+    
+  }
+
   export const getRewardRemain = async () => {
     try {
       console.log(config, "AAAAAAAAAAAAAAAA");

@@ -11,12 +11,14 @@ import { useRouter } from "next/navigation";
 import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
 import { useAccount, useConfig } from "wagmi";
 import { getTotalStaked } from "@/utils/safeStakeActions";
+import { getSoftAPR } from "@/utils/safeStakeActions";
 
 export default function Page() {
   const router = useRouter();
   const [userVolume, setUserVolume] = useState<Array<IVolume>>([]);
   const numberOfStaking = 1;
   const [totalValue, setTotalValue] = useState<number | any>(0);
+  const [softPercent, setSoftPercent] = useState<number | any>(0);
 
   useEffect(() => {
     const load = async () => {
@@ -30,6 +32,19 @@ export default function Page() {
     };
     load();
   }, [setTotalValue]);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res: any = await getSoftAPR();
+        console.log(res, "sofTARf---------")
+        setSoftPercent(res);
+      } catch (error) {
+        console.error("Error fetching total staked", error);
+      }
+    };
+    load();
+  }, [setSoftPercent]);
 
   return (
     <div className="flex justify-center items-center w-full h-[100vh] text-green-200 sm:pt-[100px] pt-[350px]">
@@ -57,7 +72,7 @@ export default function Page() {
         <TotalLockedValue value={totalValue} />
         <div className="">
           {Array.from({ length: numberOfStaking }, (_, index) => (
-            <StakingView key={index} id={index} />
+            <StakingView key={index} id={index} percent = {softPercent} />
           ))}
           <div className="flex bg-green-700/30 relative rounded-2xl mt-12 mb-8">
             <div className="flex flex-col w-[40%]  px-2 py-5  bg-green-700/30 rounded-2xl">
