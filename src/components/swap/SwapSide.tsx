@@ -74,24 +74,11 @@ export default function SwapSide({ className = "", disabled = false, coin = 0, o
         <div className="flex items-center gap-2 text-sm">
           Balance: <span>{balance}</span>
           {!disabled && (
-            <>
-            <button
-              onClick={select25}
-              className="bg-primary-gray-300 text-sm text-white px-2 rounded-md hover:cursor-pointer hover:shadow-blue-400 hover:text-blue-400 hover:shadow-button hover:bg-primary-gray-300/80"
-              >
-              25%
-            </button>
-            <button
-              onClick={select50}
-              className="bg-primary-gray-300 text-sm text-white px-2 rounded-md hover:cursor-pointer hover:shadow-blue-400 hover:text-blue-400 hover:shadow-button hover:bg-primary-gray-300/80"
-              >
-              50%
-            </button>
             <button
               onClick={selectMax}
-              className="bg-primary-gray-300 text-sm text-white px-2 rounded-md hover:cursor-pointer hover:shadow-blue-400 hover:text-blue-400 hover:shadow-button hover:bg-primary-gray-300/80"
-              >
-              100%
+              className="bg-primary-gray-300 text-xs text-white px-2 rounded-md hover:cursor-pointer hover:shadow-blue-400 hover:text-blue-400 hover:shadow-button hover:bg-primary-gray-300/80"
+            >
+              MAX
             </button>
               </>
             
