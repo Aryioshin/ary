@@ -17,7 +17,7 @@ export default function Page() {
     setTimeout(() => {
       load();
     }, 1000)
-    // setUserVolume(volumeSort(list));1
+    // setUserVolume(volumeSort(list));
   }, [])
   return (
     <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[300px]">
