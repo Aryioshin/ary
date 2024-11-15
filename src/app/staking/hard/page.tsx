@@ -178,7 +178,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[200px]">
+    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[400px]">
       <div className="relative w-[calc(100%-10px)] md:w-[700px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
         <div className="flex justify-between items-baseline mb-4 px-8">
           <div
