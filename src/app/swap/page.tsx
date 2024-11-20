@@ -68,7 +68,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="relative w-[450px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 mt-[200px] shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
+      <div className="relative w-[450px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 mt-[50px] shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
         <div className="flex justify-between gap-2 px-8">
           <div className="rounded flex justify-center items-center text-3xl font-bold hover:cursor-pointer text-green-200">
             SWAP

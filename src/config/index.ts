@@ -17,9 +17,19 @@ export const TOKEN_LIST = [
   { name: "WCRO", isNative: false, address: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23", decimal: 18 },
   { name: "ARY", isNative: false, address: "0x41bc026dABe978bc2FAfeA1850456511ca4B01bc", decimal: 18 },
   { name: "USDC", isNative: false, address: "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59", decimal: 6 },
-  { name: "MERY", isNative: false, address: "0x3b41B27E74Dd366CE27cB389dc7877D4e1516d4d", decimal: 18 },
   { name: "USDT", isNative: false, address: "0x66e428c3f67a68878562e79A0234c1F83c208770", decimal: 6 },
+  { name: "MERY", isNative: false, address: "0x3b41B27E74Dd366CE27cB389dc7877D4e1516d4d", decimal: 18 },
+  { name: "CAW", isNative: false, address: "0xccccccccdbec186dc426f8b5628af94737df0e60", decimal: 18 },
   { name: "TURTLE", isNative: false, address: "0x8C9E2bEf2962CE302ef578113eebEc62920B7e57", decimal: 18 },
+  { name: "Croginal", isNative: false, address: "0xd50f5739a09f36c6f97cc9a4849c5462ba6129a3", decimal: 18 },
+  { name: "DIP", isNative: false, address: "0x9be47e9dca99a6f5cb3666d079571ec229ae2ca4", decimal: 18 },
+  { name: "MOON", isNative: false, address: "0x46e2b5423f6ff46a8a35861ec9daff26af77ab9a", decimal: 18 },
+  { name: "FFTB", isNative: false, address: "0xd677944df705924af369d2fccf4a989f343dbcdf", decimal: 18 },
+  { name: "PUUSH", isNative: false, address: "0x288898a6057d2d4989c533e96cb3bc30843c91d7", decimal: 18 },
+  { name: "CROB", isNative: false, address: "0x63ed0a82cac237667c89cd6ac5bfa2317186fdaa", decimal: 18 },
+  { name: "RTRD", isNative: false, address: "0xea292deb7ac933f61580eee269f7ba3c2f23f5a0", decimal: 18 },
+  { name: "CROAK", isNative: false, address: "0xed70e1b02a63fafd5ece7c0a2a1b12d4b424b4a8", decimal: 18 },
+  { name: "GRNSTX V2", isNative: false, address: "0x16a19ae876272fb9cc8df78a116c63cc1562270b", decimal: 18 },
 ]
 
 
