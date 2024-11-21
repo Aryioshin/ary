@@ -68,14 +68,13 @@ export const getQuote = async (config: Config, baseToken: number, baseAmount: nu
 export const getTokenBalance = async (config: Config, address: Address, chainId: number, tokenId: number) => {
   const token = TOKEN_LIST[tokenId];
   const tokenAddress = token.address;
-  const abi = Abis[token.name]
+  const abi = Abis[token.name] ?? Abis["ERC20"]
   if (!address || !config || !tokenAddress) return 0;
   try {
     const tokenBalance = await readContract(config, {
       abi, functionName: 'balanceOf',
       address: tokenAddress as Address, args: [address as Address]
     })
-    console.log("ZXCV", token, tokenAddress);
     return convertBignitTofloat(tokenBalance, token.decimal);
   } catch (error) {
     console.log("ZXCV", token, tokenAddress);
