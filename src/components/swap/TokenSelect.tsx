@@ -43,7 +43,7 @@ export default function TokenSelect(props: any) {
         <ChevronDown className="mt-1 text-blue-200" size={15} />
       </button>
       {showMenu && (
-        <div className="absolute min-w-[110px] top-[110%] left-0 bg-primary-gray-200/50 shadow shadow-blue-400 backdrop-blur rounded p-1 z-50 overflow-auto">
+        <div className="absolute min-w-[110px] max-h-[220px] top-[110%] left-0 bg-primary-gray-200/50 shadow shadow-blue-400 backdrop-blur rounded p-1 z-50 overflow-auto">
           {TOKEN_LIST.map((item, index) => {
             if (index == opCoin) return <></>
             return <TokenItem key={index} token={item} setCoin={setCoin} closeMenu={closeMenu} />
