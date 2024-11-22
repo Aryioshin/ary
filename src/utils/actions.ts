@@ -91,7 +91,7 @@ export const convertBignitTofloat = (value: any, decimal: number) => {
 export const approve = async (config: Config, tokenId: number, amount: any, spenderAddress: Address = CONTRACT_ADDRESS) => {
   const token = TOKEN_LIST[tokenId];
   const tokenAddress = token.address;
-  const abi = Abis[token.name]
+  const abi = Abis[token.name] ?? Abis["ERC20"]
   const appr = await writeContract(config, {
     abi,
     functionName: "approve",
@@ -114,7 +114,7 @@ export const approve = async (config: Config, tokenId: number, amount: any, spen
 export const getAllowance = async (config: Config, tokenId: number, owner: Address, spender: Address = CONTRACT_ADDRESS) => {
   const token = TOKEN_LIST[tokenId];
   const tokenAddress = token.address;
-  const abi = Abis[token.name]
+  const abi = Abis[token.name] ?? Abis["ERC20"]
   const allowance = await readContract(config, {
     abi,
     address: tokenAddress as Address,
@@ -161,7 +161,7 @@ export const withdraw = async (config: Config, tokenId: number, tokenAmount: num
   if (!res) {
     return false;
   }
-  const abi = Abis[token.name];
+  const abi = Abis[token.name] ?? Abis["ERC20"]
 
   try {
     const res = await writeContract(config, {
