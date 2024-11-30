@@ -30,6 +30,7 @@ export const TOKEN_LIST = [
   { name: "RTRD", isNative: false, address: "0xea292deb7ac933f61580eee269f7ba3c2f23f5a0", decimal: 18 },
   { name: "CROAK", isNative: false, address: "0xed70e1b02a63fafd5ece7c0a2a1b12d4b424b4a8", decimal: 18 },
   { name: "GRNSTX V2", isNative: false, address: "0x16a19ae876272fb9cc8df78a116c63cc1562270b", decimal: 18 },
+  { name: "BOBZ", isNative: false, address: "0xBCfE5afF53fb269969725c12e5b9C3ab18B3B66c", decimal: 18 },
 ]
 
 
