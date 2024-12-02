@@ -49,7 +49,7 @@ export default function Page() {
   const [amount, setAmount] = useState(0);
   const [showAmount, setShowAmount] = useState(0);
   const config1 = useConfig();
-  const [rewardRemainValue, setRewardRemainValue] = useState("");
+  const [rewardRemainValue, setRewardRemainValue] = useState<any>("");
   const chainId = useChainId();
   const { chains, switchChain, error } = useSwitchChain();
   const [tooltipFlg, setToolTipFlg] = useState(0);
@@ -277,9 +277,9 @@ export default function Page() {
                   onClick={allClaim}
                   className="relative text-2xl font-medium text-orange-00 text-center z-10"
                 >
-                  Claim ( {showRemain(rewardRemainValue)} )
+                  Claim ( {convertBignitToString(rewardRemainValue / (10 ** 18))} )
                 </div>
-                <p
+                {/* <p
                   onClick={showToolTip}
                   className="border border-2 border-orange-200 text-orange-00 h-6 ml-3 text-[11px] text-white px-2 -pt-2 hover:cursor-pointer"
                 >
@@ -294,7 +294,7 @@ export default function Page() {
                   <div className="tooltip absolute hidden bg-gray-700 text-white text-lg rounded-lg p-2 whitespace-nowrap left-1/2 transform -translate-x-1/2 -translate-y-full">
                     {rewardRemainValue}
                   </div>
-                )}
+                )} */}
               </button>
 
               <button
