@@ -13,7 +13,7 @@ import { swapTokens, getQuote } from "@/utils/actions";
 import { toast } from "react-toastify";
 import { readContract, writeContract } from "@wagmi/core";
 import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
-import { getUserInfo, getRewardRemain, convertBignitToString } from "@/utils/safeStakeActions";
+import { getUserInfo, getRewardRemain, convertBignitToString, getUserReward } from "@/utils/safeStakeActions";
 import { deposit } from "@/utils/safeStakeActions";
 import { Address } from "viem";
 import { CloudCog } from "lucide-react";
@@ -51,10 +51,11 @@ export default function Page() {
   useEffect(() => {
     const load = async () => {
       const res: any = await getUserInfo(config, address as Address);
+      const rewardRes: any = await getUserReward(config, address as Address);
       let [user_amount, user_reward] = res.toString().split(",");
       console.log("rererererrreer" + user_amount + "a" + user_reward);
       setYourValue(user_amount);
-      setRewardRemainValue(user_reward);
+      setRewardRemainValue(Number(rewardRes));
       console.log("aaaaaaaaaaaa" + res);
 
       const balance: any = await getTokenBalance(
