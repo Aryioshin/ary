@@ -19,6 +19,7 @@ export const TOKEN_LIST = [
   { name: "USDC", isNative: false, address: "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59", decimal: 6 },
   { name: "USDT", isNative: false, address: "0x66e428c3f67a68878562e79A0234c1F83c208770", decimal: 6 },
   { name: "MERY", isNative: false, address: "0x3b41B27E74Dd366CE27cB389dc7877D4e1516d4d", decimal: 18 },
+  { name: "CORGIAI", isNative: false, address: "0x6b431B8a964BFcf28191b07c91189fF4403957D0", decimal: 18 },
   { name: "CAW", isNative: false, address: "0xccccccccdbec186dc426f8b5628af94737df0e60", decimal: 18 },
   { name: "TURTLE", isNative: false, address: "0x8C9E2bEf2962CE302ef578113eebEc62920B7e57", decimal: 18 },
   { name: "Croginal", isNative: false, address: "0xd50f5739a09f36c6f97cc9a4849c5462ba6129a3", decimal: 18 },
@@ -29,7 +30,6 @@ export const TOKEN_LIST = [
   { name: "GRNSTX V2", isNative: false, address: "0x16a19ae876272fb9cc8df78a116c63cc1562270b", decimal: 18 },
   { name: "BOBZ", isNative: false, address: "0xBCfE5afF53fb269969725c12e5b9C3ab18B3B66c", decimal: 18 },
   { name: "NEURO", isNative: false, address: "0xCFE223d06b86568C24ffd17E8ac748DbAC096b3b", decimal: 18 },
-  { name: "CORGIAI", isNative: false, address: "0x6b431B8a964BFcf28191b07c91189fF4403957D0", decimal: 18 },
   { name: "PIQ", isNative: false, address: "0xfdEA7ab3cE8cd76d6bf8D430BEB9E0cb602AD392", decimal: 18 },
   { name: "RETRIBUTION", isNative: false, address: "0x6ad9893eB92F4916f703f660410a454f6Acc3FE1", decimal: 18 }
 ]
