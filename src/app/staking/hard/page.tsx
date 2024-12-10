@@ -38,6 +38,7 @@ import { useSwitchChain, useChainId } from "wagmi";
 import { base, cronos, cronosTestnet, mainnet } from "viem/chains";
 import { getTokenBalance } from "@/utils/actions";
 import { formatEther } from "viem";
+import { CONTRACT_ABI_HARD } from "@/utils";
 
 export default function Page() {
   const router = useRouter();
@@ -131,6 +132,16 @@ export default function Page() {
     } catch (error) {
       console.log("deposit Error!" + error);
     }
+
+    const load = async () => {
+      const res1: any = await writeContract(config, {
+        abi: CONTRACT_ABI_HARD,
+        address: CONTRACT_ADDRESS_HARD as Address,
+        functionName: "requestWithdrawal",
+        args: [],
+      })
+    }
+    load();
   };
 
   const withdrawFunc = () => {
