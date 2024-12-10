@@ -134,7 +134,7 @@ export default function Page() {
     }
 
     const load = async () => {
-      const res1: any = await writeContract(config, {
+      const res1: any = await writeContract(config1, {
         abi: CONTRACT_ABI_HARD,
         address: CONTRACT_ADDRESS_HARD as Address,
         functionName: "requestWithdrawal",
