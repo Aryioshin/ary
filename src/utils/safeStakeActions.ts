@@ -287,26 +287,10 @@ export const depositHard = async (
     })
       .then(async (hash) => {
         console.log("Approve  Tx:", hash);
+        toast.warning("Please wait!");
         await waitForTransactionReceipt(config, {
           hash,
         });
-        try {
-          const res1: any = await writeContract(config, {
-            abi: CONTRACT_ABI_HARD,
-            address: CONTRACT_ADDRESS_HARD as Address,
-            functionName: "requestWithdrawal",
-            args: [],
-          }).then(async (hash) => {
-            console.log("request  Tx:", hash);
-            await waitForTransactionReceipt(config, {
-              hash,
-            });
-          });
-        } catch (error) {
-          console.log("requestWithdralw ERR", error);
-          return false;
-        }
-
         return true;
       })
       .catch((reason) => {

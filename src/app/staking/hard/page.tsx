@@ -24,7 +24,7 @@ import {
   withdrawHard,
   depositHard,
   getUserVolumeHard,
-  convertBignitToString
+  convertBignitToString,
 } from "@/utils/safeStakeActions";
 import { deposit } from "@/utils/safeStakeActions";
 import { Address } from "viem";
@@ -81,11 +81,11 @@ export default function Page() {
       setYourValue(res[0]);
       setRewardRemainValue(res[1].toString());
       let maxDepo: any = await getUserVolumeHard(config, address as Address);
-      let r : any = parseFloat(maxDepo);
+      let r: any = parseFloat(maxDepo);
       console.log(r, "rrrrrrrrrrrrr");
-      const r1 : any = parseFloat(formatEther(res[0]));
+      const r1: any = parseFloat(formatEther(res[0]));
       console.log(r1, "resresres");
-      if(r1 > 0) r -= r1;
+      if (r1 > 0) r -= r1;
       setMaxDeposit(r);
       // console.log("aaaaaaaaaaaa" + res);
     };
@@ -119,9 +119,26 @@ export default function Page() {
     console.log("FormatF", num / oneK, oneM);
     if (num < 100000000) return num;
     if (num < oneM) {
-      return num / oneK + 'K';
+      return num / oneK + "K";
     }
-    return num / oneM + 'M';
+    return num / oneM + "M";
+  };
+
+  const requestWithdraw = () => {
+    const load = async () => {
+      toast.warning("Please wait");
+      try {
+        const res1: any = await writeContract(config1, {
+          abi: CONTRACT_ABI_HARD,
+          address: CONTRACT_ADDRESS_HARD as Address,
+          functionName: "requestWithdrawal",
+          args: [],
+        });
+      } catch (error) {
+        console.log("🚀 ~ requestWithdraw error:", error);
+      }
+    };
+    load();
   };
 
   const depositNew = () => {
@@ -132,16 +149,6 @@ export default function Page() {
     } catch (error) {
       console.log("deposit Error!" + error);
     }
-
-    const load = async () => {
-      const res1: any = await writeContract(config1, {
-        abi: CONTRACT_ABI_HARD,
-        address: CONTRACT_ADDRESS_HARD as Address,
-        functionName: "requestWithdrawal",
-        args: [],
-      })
-    }
-    load();
   };
 
   const withdrawFunc = () => {
@@ -269,11 +276,19 @@ export default function Page() {
                 />
               </div>
             </div>
-            <div
-              onClick={depositNew}
-              className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
-            >
-              STAKE NOW
+            <div className="flex justify-center gap-1">
+              <div
+                onClick={depositNew}
+                className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
+              >
+                STAKE NOW
+              </div>
+              <div
+                onClick={requestWithdraw}
+                className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
+              >
+                UNLOCK
+              </div>
             </div>
 
             <div className="flex flex-col">
@@ -288,7 +303,8 @@ export default function Page() {
                   onClick={allClaim}
                   className="relative text-2xl font-medium text-orange-00 text-center z-10"
                 >
-                  Claim ( {convertBignitToString(rewardRemainValue / (10 ** 18))} )
+                  Claim ( {convertBignitToString(rewardRemainValue / 10 ** 18)}{" "}
+                  )
                 </div>
                 {/* <p
                   onClick={showToolTip}
