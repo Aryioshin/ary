@@ -350,7 +350,7 @@ export const claimRewardsHard = async (config: Config) => {
     const res = await writeContract(config, {
       abi: CONTRACT_ABI_HARD,
       address: CONTRACT_ADDRESS_HARD as Address,
-      functionName: "withdrawRewards",
+      functionName: "claimFees",
       args: [],
     })
       .then(async (hash) => {

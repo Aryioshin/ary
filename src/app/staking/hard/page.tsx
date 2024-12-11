@@ -56,6 +56,7 @@ export default function Page() {
   const [tooltipFlg, setToolTipFlg] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
   const [maxDeposit, setMaxDeposit] = useState(0);
+  const [requestRemain, setRequestRemain] = useState(0);
 
   const switchChainHandle = async () => {
     switchChain({ chainId: cronos.id });
@@ -67,19 +68,26 @@ export default function Page() {
     const load = async () => {
       const res: any = await getUserInfoHard(config, address as Address);
       // let [user_amount, user_reward] = res.toString().split(",");
-      console.log("rererererrreer" + res[0] + "a" + res[1]);
+      console.log("rererererrreer" + res[0] + "a" + res[1] + res[2]);
       const balance: any = await getTokenBalance(
         config,
         address as Address,
         chainId,
         2
       );
+      setRequestRemain(Number(res[2]));
+      console.log("~F@F@F", Number(res[2]) / 3600);
       const test: any = balance
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       setTotalBalance(test);
       setYourValue(res[0]);
-      setRewardRemainValue(res[1].toString());
+      console.log("#$#$#$#$#$#$#", res[1].toString(), maxDeposit);
+      if(Number(res[1]) - Number(maxDeposit) == 0) setRewardRemainValue(0);
+      else {
+        const newVol = (Number(res[1]) - Number(maxDeposit)) * 300 / 100000 / 2;
+        setRewardRemainValue(newVol.toString());
+      }
       let maxDepo: any = await getUserVolumeHard(config, address as Address);
       let r: any = parseFloat(maxDepo);
       console.log(r, "rrrrrrrrrrrrr");
@@ -92,7 +100,7 @@ export default function Page() {
     if (address && config) {
       load();
     }
-  }, [config, address]);
+  }, [config, address, maxDeposit]);
 
   // const newDeposit = (useCallback(async () => {
   //   if (baseToken == quoteToken) return;
