@@ -22,7 +22,7 @@ export const TOKEN_LIST = [
   { name: "CORGIAI", isNative: false, address: "0x6b431B8a964BFcf28191b07c91189fF4403957D0", decimal: 18 },
   { name: "CAW", isNative: false, address: "0xccccccccdbec186dc426f8b5628af94737df0e60", decimal: 18 },
   { name: "TURTLE", isNative: false, address: "0x8C9E2bEf2962CE302ef578113eebEc62920B7e57", decimal: 18 },
-  { name: "Croginal", isNative: false, address: "0xd50f5739a09f36c6f97cc9a4849c5462ba6129a3", decimal: 18 },
+  { name: "CROGINAL", isNative: false, address: "0xd50f5739a09f36c6f97cc9a4849c5462ba6129a3", decimal: 18 },
   { name: "MOON", isNative: false, address: "0x46e2b5423f6ff46a8a35861ec9daff26af77ab9a", decimal: 18 },
   { name: "FFTB", isNative: false, address: "0xd677944df705924af369d2fccf4a989f343dbcdf", decimal: 18 },
   { name: "PUUSH", isNative: false, address: "0x288898a6057d2d4989c533e96cb3bc30843c91d7", decimal: 18 },
@@ -31,7 +31,8 @@ export const TOKEN_LIST = [
   { name: "BOBZ", isNative: false, address: "0xBCfE5afF53fb269969725c12e5b9C3ab18B3B66c", decimal: 18 },
   { name: "NEURO", isNative: false, address: "0xCFE223d06b86568C24ffd17E8ac748DbAC096b3b", decimal: 18 },
   { name: "PIQ", isNative: false, address: "0xfdEA7ab3cE8cd76d6bf8D430BEB9E0cb602AD392", decimal: 18 },
-  { name: "RETRIBUTION", isNative: false, address: "0x6ad9893eB92F4916f703f660410a454f6Acc3FE1", decimal: 18 }
+  { name: "RETRIB", isNative: false, address: "0x6ad9893eB92F4916f703f660410a454f6Acc3FE1", decimal: 18 },
+  { name: "CROSTY", isNative: false, address: "0x55890AECAD5EC39b6a24feBa276982De7756C95f", decimal: 18 }
 ]
 
 
