@@ -27,6 +27,7 @@ export const TOKEN_LIST = [
   { name: "FFTB", isNative: false, address: "0xd677944df705924af369d2fccf4a989f343dbcdf", decimal: 18 },
   { name: "PUUSH", isNative: false, address: "0x288898a6057d2d4989c533e96cb3bc30843c91d7", decimal: 18 },
   { name: "KITTY", isNative: false, address: "0x4d7c922D6C12CfbF5BC85F56c9ccB1F61f49bf61", decimal: 18 },
+  { name: "REAPER", isNative: false, address: "0x73712A912AE5e39634046F4409Ef57eac34E96BA", decimal: 18 },
   { name: "RTRD", isNative: false, address: "0xea292deb7ac933f61580eee269f7ba3c2f23f5a0", decimal: 18 },
   { name: "GRNSTX V2", isNative: false, address: "0x16a19ae876272fb9cc8df78a116c63cc1562270b", decimal: 18 },
   { name: "BOBZ", isNative: false, address: "0xBCfE5afF53fb269969725c12e5b9C3ab18B3B66c", decimal: 18 },
