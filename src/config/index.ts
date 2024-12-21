@@ -25,6 +25,7 @@ export const TOKEN_LIST = [
   { name: "CROGINAL", isNative: false, address: "0xd50f5739a09f36c6f97cc9a4849c5462ba6129a3", decimal: 18 },
   { name: "MOON", isNative: false, address: "0x46e2b5423f6ff46a8a35861ec9daff26af77ab9a", decimal: 18 },
   { name: "FFTB", isNative: false, address: "0xd677944df705924af369d2fccf4a989f343dbcdf", decimal: 18 },
+  { name: "GM", isNative: false, address: "0x7492450cc8897a4e444Ad972eB1619251EF15C23", decimal: 18 },
   { name: "PUUSH", isNative: false, address: "0x288898a6057d2d4989c533e96cb3bc30843c91d7", decimal: 18 },
   { name: "KITTY", isNative: false, address: "0x4d7c922D6C12CfbF5BC85F56c9ccB1F61f49bf61", decimal: 18 },
   { name: "REAPER", isNative: false, address: "0x73712A912AE5e39634046F4409Ef57eac34E96BA", decimal: 18 },
