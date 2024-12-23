@@ -18,6 +18,7 @@ export const TOKEN_LIST = [
   { name: "ARY", isNative: false, address: "0x41bc026dABe978bc2FAfeA1850456511ca4B01bc", decimal: 18 },
   { name: "USDC", isNative: false, address: "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59", decimal: 6 },
   { name: "USDT", isNative: false, address: "0x66e428c3f67a68878562e79A0234c1F83c208770", decimal: 6 },
+  { name: "FRTN", isNative: false, address: "0xaF02D78F39C0002D14b95A3bE272DA02379AfF21", decimal: 18 },
   { name: "MERY", isNative: false, address: "0x3b41B27E74Dd366CE27cB389dc7877D4e1516d4d", decimal: 18 },
   { name: "CORGIAI", isNative: false, address: "0x6b431B8a964BFcf28191b07c91189fF4403957D0", decimal: 18 },
   { name: "CAW", isNative: false, address: "0xccccccccdbec186dc426f8b5628af94737df0e60", decimal: 18 },
