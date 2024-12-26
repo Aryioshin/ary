@@ -36,7 +36,8 @@ export const TOKEN_LIST = [
   { name: "NEURO", isNative: false, address: "0xCFE223d06b86568C24ffd17E8ac748DbAC096b3b", decimal: 18 },
   { name: "PIQ", isNative: false, address: "0xfdEA7ab3cE8cd76d6bf8D430BEB9E0cb602AD392", decimal: 18 },
   { name: "RETRIB", isNative: false, address: "0x6ad9893eB92F4916f703f660410a454f6Acc3FE1", decimal: 18 },
-  { name: "CROSTY", isNative: false, address: "0x55890AECAD5EC39b6a24feBa276982De7756C95f", decimal: 18 }
+  { name: "CROSTY", isNative: false, address: "0x55890AECAD5EC39b6a24feBa276982De7756C95f", decimal: 18 },
+  { name: "CROnopoly", isNative: false, address: "0x2a43870f7e1cb97bd1f181ff8547cbf94c658b9f", decimal: 18 }
 ]
 
 
