@@ -13,6 +13,7 @@ import { useAccount, useConfig } from "wagmi";
 import { getHardRate, getHardTotalStaked, getHardUnlock, getImmeFee, getSoftUnlock, getTotalStaked } from "@/utils/safeStakeActions";
 import { getSoftAPR } from "@/utils/safeStakeActions";
 import { CONTRACT_ADDRESS_HARD } from "@/config/safeStakeConfig";
+import StakingChoice from "@/components/staking/StakingChoice";
 
 export default function Page() {
   const router = useRouter();
@@ -94,8 +95,12 @@ export default function Page() {
           {/* {Array.from({ length: numberOfStaking }, (_, index) => (
             <StakingView key={index} id={index} percent = {softPercent} />
           ))} */}
-            <StakingView id={0} percent = {softPercent} unlock = {softUnlock} imme_fee = {immeFee}/>
-            <StakingView id={1} percent = {25} unlock = {hardUnlock} imme_fee = {immeFee}/>
+            {/* <StakingView id={0} percent = {softPercent} unlock = {softUnlock} imme_fee = {immeFee}/>
+            <StakingView id={1} percent = {25} unlock = {hardUnlock} imme_fee = {immeFee}/> */}
+            <StakingChoice id = {0} percent = {softPercent} />
+            <StakingChoice id = {1} percent = {20 * 100} />
+            <StakingChoice id = {2} percent = {10 * 100} />
+            <StakingChoice id = {3} percent = {softPercent} />
 
           {/* <div className="flex bg-green-700/30 relative rounded-2xl mt-12 mb-8">
             <div className="flex flex-col w-[40%]  px-2 py-5  bg-green-700/30 rounded-2xl">
