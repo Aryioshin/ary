@@ -22,6 +22,7 @@ export const TOKEN_LIST = [
   { name: "MERY", isNative: false, address: "0x3b41B27E74Dd366CE27cB389dc7877D4e1516d4d", decimal: 18 },
   { name: "CORGIAI", isNative: false, address: "0x6b431B8a964BFcf28191b07c91189fF4403957D0", decimal: 18 },
   { name: "CAW", isNative: false, address: "0xccccccccdbec186dc426f8b5628af94737df0e60", decimal: 18 },
+  { name: "LAZYLION", isNative: false, address: "0x6135c840c511a112457d647Aad82a26412a4fa7D", decimal: 18 },
   { name: "TURTLE", isNative: false, address: "0x8C9E2bEf2962CE302ef578113eebEc62920B7e57", decimal: 18 },
   { name: "CROGINAL", isNative: false, address: "0xd50f5739a09f36c6f97cc9a4849c5462ba6129a3", decimal: 18 },
   { name: "MOON", isNative: false, address: "0x46e2b5423f6ff46a8a35861ec9daff26af77ab9a", decimal: 18 },
