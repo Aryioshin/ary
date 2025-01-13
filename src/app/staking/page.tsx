@@ -97,6 +97,7 @@ export default function Page() {
           ))} */}
             {/* <StakingView id={0} percent = {softPercent} unlock = {softUnlock} imme_fee = {immeFee}/>
             <StakingView id={1} percent = {25} unlock = {hardUnlock} imme_fee = {immeFee}/> */}
+            
             <StakingChoice id = {0} percent = {softPercent} />
             <StakingChoice id = {1} percent = {20 * 100} />
             <StakingChoice id = {2} percent = {10 * 100} />
