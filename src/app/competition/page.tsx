@@ -20,7 +20,7 @@ export default function Page() {
     // setUserVolume(volumeSort(list));
   }, [])
   return (
-    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 sm:pt-[100px] pt-[300px]">
+    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 sm:pt-[100px] pt-[0px]">
       <div className="relative w-[calc(100%-10px)] md:w-[700px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
         <div className="flex justify-between items-baseline mb-4 px-8">
           <div className="text-2xl text-gray-400 hover:text-blue-400 hover:cursor-pointer hover:scale-125 hover:bottom-4 bottom-0 transition-all duration-100" onClick={() => { router.push("/swap") }}>SWAP</div>
