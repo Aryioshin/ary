@@ -60,7 +60,7 @@ export default function Page() {
     setIsSwapping(false);
   }, [baseToken, quoteToken, baseAmount, address])
   return (
-    <div className="flex justify-center items-center w-full sm:h-[100vh] h-[70vh] text-orange-400">
+    <div className="flex justify-center items-center w-full sm:h-[90vh] h-[70vh] text-orange-400">
       <div className={`bg-gray-50/70 fixed w-full h-full z-50 ${isSwapping ? "block" : "hidden"}`}>
         <div className="flex justify-center items-center w-full h-full">
           <div className="relative aspect-square w-[100px]">
