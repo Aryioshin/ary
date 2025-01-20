@@ -29,6 +29,8 @@ const config: Config = {
         "primary-gray-200": "#141823",
         "primary-gray-300": "#0E1119",
         "green-1": "#0E5929",
+        "logo-rank": "#092A09",
+        "logo": "#197337",
       }
     },
   },
