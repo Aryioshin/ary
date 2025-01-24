@@ -13,6 +13,7 @@ import { useAccount, useConfig } from "wagmi";
 import { getHardRate, getHardTotalStaked, getHardUnlock, getImmeFee, getSoftUnlock, getTotalStaked } from "@/utils/safeStakeActions";
 import { getSoftAPR } from "@/utils/safeStakeActions";
 import { CONTRACT_ADDRESS_HARD } from "@/config/safeStakeConfig";
+import StakingChoice from "@/components/staking/StakingChoice";
 
 export default function Page() {
   const router = useRouter();
@@ -67,7 +68,7 @@ export default function Page() {
   }, [setSoftPercent, setHardPercent, setSoftUnlock, setHardUnlock, setImmeFee]);
 
   return (
-    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 sm:pt-[100px] pt-[450px]">
+    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 sm:pt-[100px] pt-[0px]">
       <div className="relative w-[calc(100%-10px)] md:w-[700px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
         <div className="flex justify-between items-baseline mb-4 px-8">
           <div
@@ -94,8 +95,13 @@ export default function Page() {
           {/* {Array.from({ length: numberOfStaking }, (_, index) => (
             <StakingView key={index} id={index} percent = {softPercent} />
           ))} */}
-            <StakingView id={0} percent = {softPercent} unlock = {softUnlock} imme_fee = {immeFee}/>
-            <StakingView id={1} percent = {25} unlock = {hardUnlock} imme_fee = {immeFee}/>
+            {/* <StakingView id={0} percent = {softPercent} unlock = {softUnlock} imme_fee = {immeFee}/>
+            <StakingView id={1} percent = {25} unlock = {hardUnlock} imme_fee = {immeFee}/> */}
+            
+            <StakingChoice id = {0} percent = {softPercent} />
+            <StakingChoice id = {1} percent = {20 * 100} />
+            <StakingChoice id = {2} percent = {10 * 100} />
+            <StakingChoice id = {3} percent = {softPercent} />
 
           {/* <div className="flex bg-green-700/30 relative rounded-2xl mt-12 mb-8">
             <div className="flex flex-col w-[40%]  px-2 py-5  bg-green-700/30 rounded-2xl">

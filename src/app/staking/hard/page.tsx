@@ -23,7 +23,7 @@ import {
   withdrawHard,
   depositHard,
   getUserVolumeHard,
-  convertBignitToString
+  convertBignitToString,
 } from "@/utils/safeStakeActions";
 import { deposit } from "@/utils/safeStakeActions";
 import { Address } from "viem";
@@ -37,6 +37,7 @@ import { useSwitchChain, useChainId } from "wagmi";
 import { base, cronos, cronosTestnet, mainnet } from "viem/chains";
 import { getTokenBalance } from "@/utils/actions";
 import { formatEther } from "viem";
+import { CONTRACT_ABI_HARD } from "@/utils";
 
 export default function Page() {
   const router = useRouter();
@@ -54,6 +55,7 @@ export default function Page() {
   const [tooltipFlg, setToolTipFlg] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
   const [maxDeposit, setMaxDeposit] = useState(0);
+  const [requestRemain, setRequestRemain] = useState(0);
 
   const switchChainHandle = async () => {
     switchChain({ chainId: cronos.id });
@@ -65,32 +67,39 @@ export default function Page() {
     const load = async () => {
       const res: any = await getUserInfoHard(config, address as Address);
       // let [user_amount, user_reward] = res.toString().split(",");
-      console.log("rererererrreer" + res[0] + "a" + res[1]);
+      console.log("rererererrreer" + res[0] + "a" + res[1] + res[2]);
       const balance: any = await getTokenBalance(
         config,
         address as Address,
         chainId,
         2
       );
+      setRequestRemain(Number(res[2]));
+      console.log("~F@F@F", Number(res[2]) / 3600);
       const test: any = balance
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       setTotalBalance(test);
       setYourValue(res[0]);
-      setRewardRemainValue(res[1].toString());
+      console.log("#$#$#$#$#$#$#", res[1].toString(), maxDeposit);
+      if(Number(res[1]) - Number(maxDeposit) == 0) setRewardRemainValue(0);
+      else {
+        const newVol = (Number(res[1]) - Number(maxDeposit)) * 300 / 100000 / 2;
+        setRewardRemainValue(newVol.toString());
+      }
       let maxDepo: any = await getUserVolumeHard(config, address as Address);
-      let r : any = parseFloat(maxDepo);
+      let r: any = parseFloat(maxDepo);
       console.log(r, "rrrrrrrrrrrrr");
-      const r1 : any = parseFloat(formatEther(res[0]));
+      const r1: any = parseFloat(formatEther(res[0]));
       console.log(r1, "resresres");
-      if(r1 > 0) r -= r1;
+      if (r1 > 0) r -= r1;
       setMaxDeposit(r);
       // console.log("aaaaaaaaaaaa" + res);
     };
     if (address && config) {
       load();
     }
-  }, [config, address]);
+  }, [config, address, maxDeposit]);
 
   // const newDeposit = (useCallback(async () => {
   //   if (baseToken == quoteToken) return;
@@ -117,9 +126,26 @@ export default function Page() {
     console.log("FormatF", num / oneK, oneM);
     if (num < 100000000) return num;
     if (num < oneM) {
-      return num / oneK + 'K';
+      return num / oneK + "K";
     }
-    return num / oneM + 'M';
+    return num / oneM + "M";
+  };
+
+  const requestWithdraw = () => {
+    const load = async () => {
+      toast.warning("Please wait");
+      try {
+        const res1: any = await writeContract(config1, {
+          abi: CONTRACT_ABI_HARD,
+          address: CONTRACT_ADDRESS_HARD as Address,
+          functionName: "requestWithdrawal",
+          args: [],
+        });
+      } catch (error) {
+        console.log("🚀 ~ requestWithdraw error:", error);
+      }
+    };
+    load();
   };
 
   const depositNew = () => {
@@ -177,7 +203,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[550px]">
+    <div className="flex justify-center items-center w-full h-[100vh] text-green-200 pt-[10px]">
       <div className="relative w-[calc(100%-10px)] md:w-[700px] bg-green-950/80 px-5 pt-10 pb-4 mx-4 shadow-3xl shadow-green-600/70 rounded-3xl backdrop-blur-sm">
         <div className="flex justify-between items-baseline mb-4 px-8">
           <div
@@ -257,11 +283,19 @@ export default function Page() {
                 />
               </div>
             </div>
-            <div
-              onClick={depositNew}
-              className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
-            >
-              STAKE NOW
+            <div className="flex justify-center gap-1">
+              <div
+                onClick={depositNew}
+                className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
+              >
+                STAKE NOW
+              </div>
+              <div
+                onClick={requestWithdraw}
+                className="relative text-3xl mr-10 hover:cursor-pointer font-medium text-orange-200 text-center z-10 mt-[50px] mb-[30px]"
+              >
+                UNLOCK
+              </div>
             </div>
 
             <div className="flex flex-col">
@@ -276,7 +310,8 @@ export default function Page() {
                   onClick={allClaim}
                   className="relative text-2xl font-medium text-orange-00 text-center z-10"
                 >
-                  Claim ( {convertBignitToString(rewardRemainValue / (10 ** 18))} )
+                  Claim ( {convertBignitToString(rewardRemainValue / 10 ** 18)}{" "}
+                  )
                 </div>
                 {/* <p
                   onClick={showToolTip}
