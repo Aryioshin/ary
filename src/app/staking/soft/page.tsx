@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import { useAccount, useConfig } from "wagmi";
 import { swapTokens, getQuote } from "@/utils/actions";
 import { toast } from "react-toastify";
-import { readContract, writeContract } from "@wagmi/core";
 import { CONTRACT_ADDRESS } from "@/config/safeStakeConfig";
 import { getUserInfo, getRewardRemain, convertBignitToString } from "@/utils/safeStakeActions";
 import { deposit } from "@/utils/safeStakeActions";

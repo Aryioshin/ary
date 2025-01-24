@@ -1,5 +1,5 @@
 import { readContract, writeContract } from '@wagmi/core';
-import { Address } from 'viem';
+import { Address, parseGwei } from 'viem';
 import { Abis, CONTRACT_ABI_HARD } from '@/utils';
 import { CONTRACT_ADDRESS, TOKEN_LIST, WCRO, VVS2Router, fee, CONTRACT_ADDRESS_HARD, } from '../config/safeStakeConfig';
 import { CONTRACT_ABI_ARY, VVS2_ABI, ABI } from '@/utils';
@@ -9,6 +9,7 @@ import { Config, useAccount } from "wagmi"
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { parseEther } from 'viem'
 import { config } from '@/config/config';
+import { GAS_LIMIT, GAS_PRICE } from '@/config/gasConfig';
 const { ethers } = require("ethers");
 
 export const getUserInfo = async (config: Config, owner: Address) => {
@@ -180,7 +181,9 @@ export const getUserInfo = async (config: Config, owner: Address) => {
     const appr = await writeContract(config, {
       abi,
       functionName: "approve",
-      address: tokenAddress as Address, args: [spenderAddress, amount]
+      address: tokenAddress as Address, args: [spenderAddress, amount],
+      gas: parseGwei(GAS_LIMIT.toString()),
+          gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       console.log("Approve Tx:", hash);
       toast.warning('Please wait');
@@ -213,6 +216,8 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS as Address,
         functionName: 'deposit',
         args: [amount],
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Approve Tx:", hash);
         toast.warning('Please wait');
@@ -253,7 +258,9 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS_HARD as Address,
         functionName: 'stake',
         args: [amount],
-        value: payableCro
+        value: payableCro,
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Approve  Tx:", hash);
         toast.warning('Please wait!');
@@ -287,6 +294,8 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS as Address,
         functionName: 'claimRewards',
         args: [],
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Tx:", hash);
         toast.warning('Please wait');
@@ -320,6 +329,8 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS_HARD as Address,
         functionName: 'withdrawRewards',
         args: [],
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Tx:", hash);
         toast.warning('Please wait');
@@ -354,6 +365,8 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS as Address,
         functionName: 'withdraw',
         args: [],
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Tx:", hash);
         toast.warning('Please wait');
@@ -387,6 +400,8 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS_HARD as Address,
         functionName: 'withdraw',
         args: [],
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Tx:", hash);
         toast.warning('Please wait');
@@ -420,6 +435,8 @@ export const getUserInfo = async (config: Config, owner: Address) => {
         address: CONTRACT_ADDRESS_HARD as Address,
         functionName: 'immediateWithdraw',
         args: [],
+        gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
       }).then(async (hash) => {
         console.log("Tx:", hash);
         toast.warning('Please wait');

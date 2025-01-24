@@ -1,7 +1,7 @@
 
 import { readContract, writeContract } from '@wagmi/core';
 import { config } from '../config/wagmi';
-import { Address } from 'viem';
+import { Address, parseGwei } from 'viem';
 import { Abis } from '@/utils';
 import { CONTRACT_ADDRESS, TOKEN_LIST, WCRO, VVS2Router, fee, } from '../config';
 import { CONTRACT_ABI, VVS2_ABI } from '@/utils';
@@ -10,6 +10,7 @@ import { parseEther } from 'viem'
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { toast } from 'react-toastify';
 import { Config } from "wagmi"
+import { GAS_LIMIT, GAS_PRICE } from '../config/gasConfig'; // Import gas configurations
 
 export interface IVolume {
   user: Address;
@@ -95,7 +96,10 @@ export const approve = async (config: Config, tokenId: number, amount: any, spen
   const appr = await writeContract(config, {
     abi,
     functionName: "approve",
-    address: tokenAddress as Address, args: [spenderAddress, amount]
+    address: tokenAddress as Address, args: [spenderAddress, amount],
+    gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
+
   }).then(async (hash) => {
     console.log("Approve Tx:", hash);
     toast.warning('Please wait');
@@ -131,7 +135,9 @@ export const deposit = async (config: Config, amount: number, address: Address |
       functionName: 'deposit',
       args: [],
       account: address as Address,
-      value: parseEther(amount.toString())
+      value: parseEther(amount.toString()),
+      gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       console.log("Approve Tx:", hash);
       toast.warning('Please wait');
@@ -169,7 +175,9 @@ export const withdraw = async (config: Config, tokenId: number, tokenAmount: num
       address: CONTRACT_ADDRESS as Address,
       functionName: 'withdraw',
       args: [amount],
-      account: address as Address
+      account: address as Address,
+      gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       console.log("Tx:", hash);
       toast.warning('Please wait');
@@ -205,7 +213,9 @@ export const swapTokenForNative = async (config: Config, baseToken: number, base
       abi: CONTRACT_ABI,
       address: CONTRACT_ADDRESS,
       args: [token.address, amountIn, amountOut],
-      functionName: 'swapTokenForCRO'
+      functionName: 'swapTokenForCRO',
+      gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       await waitForTransactionReceipt(config, { hash });
       return true;
@@ -233,7 +243,9 @@ export const swapNativeForToken = async (config: Config, quoteToken: number, bas
       address: CONTRACT_ADDRESS,
       args: [token.address, amountOut],
       functionName: 'swapCROForToken',
-      value: amountIn
+      value: amountIn,
+      gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       await waitForTransactionReceipt(config, { hash });
       return true;
@@ -265,7 +277,9 @@ export const swapTokenForToken = async (config: Config, baseToken: number, quote
       abi: CONTRACT_ABI,
       address: CONTRACT_ADDRESS,
       args: [fromToken.address, toToken.address, amountIn, amountOut],
-      functionName: 'swapTokenForToken'
+      functionName: 'swapTokenForToken',
+      gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       await waitForTransactionReceipt(config, { hash });
       return true;
@@ -342,7 +356,9 @@ export const clearVolume = async () => {
       abi: CONTRACT_ABI,
       address: CONTRACT_ADDRESS,
       args: [],
-      functionName: 'clear'
+      functionName: 'clear',
+      gas: parseGwei(GAS_LIMIT.toString()),
+    gasPrice: parseGwei(GAS_PRICE.toString())
     }).then(async (hash) => {
       await waitForTransactionReceipt(config, { hash });
       return true;
